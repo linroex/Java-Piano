@@ -101,13 +101,23 @@ public class Piano extends javax.swing.JFrame {
                 // detect white key click
                 for(int i = 1; i < 9; i++) {
                     if(x < keyUnitWidth * i) {
-                        this.pianoResultTextArea.append("#" + blackKeyChar[i - 1] + " ");
+                        this.pianoResultTextArea.append(blackKeyChar[i - 1] + " ");
                         break;
                     }
                 }
                 
             } else if(color.getRGB() == -16777216) {    // Black
-                System.out.println("黑色");
+                char[] whiteKeyChar = new char[]{'C', 'D', ' ', 'F', 'G', 'A'};
+                
+                // detect black key click
+                for(int i = 6; i > 0; i--) {
+                    if(i != 3) {
+                        if(x > keyUnitWidth * i - 30) {
+                            this.pianoResultTextArea.append("#" + whiteKeyChar[i - 1] + " ");
+                            break;
+                        }
+                    }
+                }
             }
         } catch (AWTException e) {
             System.out.println(e.getMessage());
