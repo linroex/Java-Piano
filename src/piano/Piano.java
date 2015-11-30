@@ -20,16 +20,9 @@ public class Piano extends javax.swing.JFrame {
     public Piano() {
         initComponents();
         
-        this.drawPianoKey();
         this.setTitle("Piano");
-        
-        
     }
     
-    private void drawPianoKey() {
-        
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,12 +85,26 @@ public class Piano extends javax.swing.JFrame {
         int x = evt.getX();
         int y = evt.getY();
         
+        int panelWidth = this.PianoKeyPanel.getWidth();
+        int panelHeight = this.PianoKeyPanel.getHeight();
+        
+        int keyUnitWidth = panelWidth / 8;
+        
         try {
             Robot robot = new Robot();
             Color color = robot.getPixelColor(x, y);
             
             if(color.getRGB() == -1) {  // White
-                System.out.println("白色");
+                
+                char[] blackKeyChar = new char[]{'C', 'D', 'E', 'F', 'G', 'A', 'B', 'C'};
+                
+                // detect white key click
+                for(int i = 1; i < 9; i++) {
+                    if(x < keyUnitWidth * i) {
+                        this.pianoResultTextArea.append("#" + blackKeyChar[i - 1] + " ");
+                        break;
+                    }
+                }
                 
             } else if(color.getRGB() == -16777216) {    // Black
                 System.out.println("黑色");
