@@ -10,12 +10,21 @@ package piano;
  * @author linroex
  */
 public class Piano extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Piano
      */
     public Piano() {
         initComponents();
+        
+        this.drawPianoKey();
+        this.setTitle("Piano");
+        
+        
+    }
+    
+    private void drawPianoKey() {
+        
     }
 
     /**
@@ -27,17 +36,33 @@ public class Piano extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PianoKeyPanel = new PianoKeyPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        PianoKeyPanel.setBackground(new java.awt.Color(255, 255, 255));
+        PianoKeyPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+
+        javax.swing.GroupLayout PianoKeyPanelLayout = new javax.swing.GroupLayout(PianoKeyPanel);
+        PianoKeyPanel.setLayout(PianoKeyPanelLayout);
+        PianoKeyPanelLayout.setHorizontalGroup(
+            PianoKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 767, Short.MAX_VALUE)
+        );
+        PianoKeyPanelLayout.setVerticalGroup(
+            PianoKeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 313, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 773, Short.MAX_VALUE)
+            .addComponent(PianoKeyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
+            .addComponent(PianoKeyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -79,5 +104,6 @@ public class Piano extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PianoKeyPanel;
     // End of variables declaration//GEN-END:variables
 }
