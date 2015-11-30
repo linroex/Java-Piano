@@ -8,6 +8,12 @@ package piano;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.Color;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  *
  * @author linroex
@@ -80,7 +86,34 @@ public class Piano extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void playSound(String key) {
+        try {
 
+            Clip clip = AudioSystem.getClip();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(Piano.class.getResourceAsStream("sounds/" + key + ".wav"));
+            clip.open(inputStream);
+            clip.start();
+
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private class PlaySoundRunnable implements Runnable {
+        private final String key;
+        
+        public PlaySoundRunnable(String key) {
+            this.key = key;
+        }
+        
+        @Override
+        public void run() {
+            playSound(this.key);
+        }
+        
+    }
+    
     private void PianoKeyPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PianoKeyPanelMouseClicked
         int x = evt.getX();
         int y = evt.getY();
@@ -100,7 +133,13 @@ public class Piano extends javax.swing.JFrame {
                 // detect white key click
                 for(int i = 1; i < 9; i++) {
                     if(x < keyUnitWidth * i) {
-                        this.pianoResultTextArea.append(blackKeyChar[i - 1] + " ");
+                        String key = String.valueOf(blackKeyChar[i - 1]);
+                        
+                        this.pianoResultTextArea.append(key + " ");
+                        
+                        Thread playSoundThread = new Thread(new PlaySoundRunnable(key));
+                        playSoundThread.start();
+                        
                         break;
                     }
                 }
@@ -112,7 +151,13 @@ public class Piano extends javax.swing.JFrame {
                 for(int i = 6; i > 0; i--) {
                     if(i != 3) {
                         if(x > keyUnitWidth * i - 30) {
-                            this.pianoResultTextArea.append("#" + whiteKeyChar[i - 1] + " ");
+                            String key = "#" + String.valueOf(whiteKeyChar[i - 1]);
+                            
+                            this.pianoResultTextArea.append(key + " ");
+                            
+                            Thread playSoundThread = new Thread(new PlaySoundRunnable(key));
+                            playSoundThread.start();
+                            
                             break;
                         }
                     }
@@ -127,7 +172,7 @@ public class Piano extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])  {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -150,7 +195,10 @@ public class Piano extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Piano.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+       
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
