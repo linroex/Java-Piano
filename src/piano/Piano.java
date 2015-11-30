@@ -86,7 +86,6 @@ public class Piano extends javax.swing.JFrame {
         int y = evt.getY();
         
         int panelWidth = this.PianoKeyPanel.getWidth();
-        int panelHeight = this.PianoKeyPanel.getHeight();
         
         int keyUnitWidth = panelWidth / 8;
         
