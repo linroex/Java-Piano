@@ -40,6 +40,14 @@ class PianoKeyPanel extends JPanel {
             
             pen.drawLine(x, 0, x, panelHeight);
         }
+        
+        // Draw black key
+        for(int i = 1; i < 7; i++) {
+            if(i != 3) {
+                int x = (keyUnitWidth * i) - 30;
+                pen.fillRect(x, 0, keyUnitWidth - 30, (int) (panelHeight * 0.7));
+            }
+        }
     }
     
 }
